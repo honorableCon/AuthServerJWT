@@ -18,7 +18,8 @@ router.post('/login', async (req, res) => {
     if(user){
         const { email, role, status } = user;
         const payload = { email, role, status };
-        const token = await createToken(payload, password);
+        const token = await createToken(payload);
+        res.header('Authorization', `Bearer ${token}`);
         return res.status(200).send({token});
     }
 
