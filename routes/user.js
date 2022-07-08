@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const createToken = require('../service/createToken');
 const findUser = require('../service/findUser');
-const loginValidator = require('../validations/loginValidation');
+const loginValidator = require('../validations/login');
 
 
 router.post('/login', async (req, res) => {
@@ -19,7 +19,6 @@ router.post('/login', async (req, res) => {
         const { email, role, status } = user;
         const payload = { email, role, status };
         const token = await createToken(payload);
-        res.header('auth-token', token);
         res.header('Authorization', `Bearer ${token}`);
         return res.status(200).send(payload);
     }

@@ -1,13 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const authRouter = require('./routes/auth');
-
+const userRoute = require('./routes/user');
+const adminRoute = require('./routes/admin');
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
 
-app.use('/auth', authRouter);
+app.use('/admin', adminRoute);
+app.use('/user', userRoute);
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
