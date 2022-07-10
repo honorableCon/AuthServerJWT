@@ -10,5 +10,9 @@ app.use(express.json());
 app.use('/admin', adminRoute);
 app.use('/user', userRoute);
 
+app.get('/', (req, res) => {
+    res.json({message: 'Welcome to the AuthServerJWT'});
+});
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
