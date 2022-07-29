@@ -10,6 +10,7 @@ const allowCrossDomain = process.env.ALLOW_CROSS_DOMAIN;
 app.use(cors({
     origin: allowCrossDomain, optionsSuccessStatus: 200
 }));
+
 app.use(express.json());
 
 app.use('/admin', adminRoute);
