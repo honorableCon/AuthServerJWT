@@ -25,7 +25,6 @@ router.post("/login", async (req, res) => {
     const { email, role, status } = user;
     const payload = { email, role, status };
     const token = await createToken(payload);
-    res.cookie("jwtToken", token, optionsCookie);
     return res.status(200).send({ token });
   }
 
