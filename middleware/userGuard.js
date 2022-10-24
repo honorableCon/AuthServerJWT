@@ -7,19 +7,18 @@ router.use('/', async (req, res, next) => {
         return res.status(500).json({ error: decoded.error });
     }
 
-    const isAdmin = decoded.data.role === 'admin';
+    const isUser = decoded.data.role === 'user';
     const isActive = decoded.data.status === 'active';
 
-    if (!isAdmin) {
+    if (!isUser) {
         return res.status(401).send('Unauthorized');
     }
     if (!isActive) {
-        return res.status(401).send('Logged Out');
+        return res.status(200).send('Logged Out');
     }
-
-    req.body = { ...req.body, token: { email: decoded.data.email } };
+    
+    req.body = { ...req.body, token: decoded.data };
     next();
 })
-
 
 module.exports = router;

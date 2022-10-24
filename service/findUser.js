@@ -1,13 +1,11 @@
 const bcrypt = require('bcrypt');
-const mongodb = require('../config/mongodb');
+const findEmail = require('./findEmail');
 
 module.exports = async function findUser({email, password}) {
-    const user = await mongodb()
-        .collection('users')
-        .findOne({email});
+    const user = await findEmail(email);
 
     if(user){
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.hashedPassword);
         if(isMatch){
             return user;
         }
