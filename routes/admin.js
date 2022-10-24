@@ -55,10 +55,11 @@ router.post("/logout", adminGuard, async (req, res) => {
     const isUserExist = await findEmail(req.body.email);
 
     if (!isUserExist) {
-        return res.status(400).json({ error: 'User account does not exist' });
+        return res.status(404).json({ error: 'User account does not exist' });
 
-    } else if (isUserExist.role !== 'user') {
-        return res.status(403).json({ error: 'Cannot remove Admin session' });
+    } else if (isUserExist.role !== 'user' && isUserExist.email !== isAdmin.email) {
+        // return res.status(403).json({ error: 'Cannot remove another Admins\' session' });
+        return res.status(403).json({ error: 'Forbidden' });
 
     } else {
         const updatedUser = await updateField({ email: isUserExist.email, status: 'inactive' });
